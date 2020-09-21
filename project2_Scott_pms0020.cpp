@@ -2,11 +2,16 @@
   * @author Peyton Scott
   * @version 9.11.2020
   * Project 2 Software Construcion 
-  * 
+  * I used cplusplus.com and my brother for assitance. 
+
+  To compile the code use the command g++ file name and then ./a.out. 
+
+  thank you kind ta haha
   */
 
 
 # include <iostream>
+# include <iomanip>
 # include <stdlib.h>
 # include <assert.h>
 # include <ctime>
@@ -17,14 +22,15 @@ int a_wins = 0;
 int b_wins = 0;
 int c_wins = 0;
 
-bool at_least_two_alive(bool A_alive, bool B_alive, C_alive)
+
+bool at_least_two_alive(bool A_alive, bool B_alive,bool C_alive);
 /* Input: A_alive indicates whether Aaron is alive */
 /* B_alive indicates whether Bob is alive */
 /* C_alive indicates whether Charlie is alive */
 /* Return: true if at least two are alive */
 /* otherwise return false */
  
-void Aaron_shoots1(bool& B_alive, bool& C_alive)
+void Aaron_shoots1(bool& B_alive, bool& C_alive);
 /* Strategy 1: Use call by reference
 * Input: B_alive indicates whether Bob alive or dead
 * C_alive indicates whether Charlie is alive or dead
@@ -32,7 +38,7 @@ void Aaron_shoots1(bool& B_alive, bool& C_alive)
 * Change C_alive into false if Charlie is killed.
 */
 
-void Bob_shoots(bool& A_alive, bool& C_alive)
+void Bob_shoots(bool& A_alive, bool& C_alive);
 /* Call by reference
 * Input: A_alive indicates if Aaron is alive or dead
 * C_alive indicates whether Charlie is alive or dead
@@ -40,7 +46,7 @@ void Bob_shoots(bool& A_alive, bool& C_alive)
 * Change C_alive into false if Charlie is killed.
 */
 
-void Charlie_shoots(bool& A_alive, bool& B_alive)
+void Charlie_shoots(bool& A_alive, bool& B_alive);
 /* Call by reference
 * Input: A_alive indicates if Aaron is alive or dead
 * B_alive indicates whether Bob is alive or dead
@@ -48,7 +54,7 @@ void Charlie_shoots(bool& A_alive, bool& B_alive)
 * Change B_alive into false if Bob is killed.
 */
 
-void Aaron_shoots2(bool& B_alive, bool& C_alive)
+void Aaron_shoots2(bool& B_alive, bool& C_alive);
 /* Strategy 2: Use call by reference
 * Input: B_alive indicates whether Bob alive or dead
 * C_alive indicates whether Charlie is alive or dead
@@ -83,28 +89,30 @@ void test_Charlie_shoots(void);
 void test_Aaron_shoots2(void);
 /* This is a test driver for Aaron_shoots */
 
+void Press_any_key(void);
+
 int main()
 {
- 		cout.setf(ios::fixed | ios::showpoint);
+ 	cout.setf(ios::fixed | ios::showpoint);
 	const int NUMBER_OF_DUELS = 10000;
 	srand(time(0)); //Set random seed
 	cout << "*** Welcome to Aubie's Duel Simulator ***\n";
 	
 	//Run tests
 	test_atleast_two_alive();
-	press_any_key();
+	Press_any_key();
 	test_Aaron_shoots1();
-	press_any_key();
+	Press_any_key();
 	test_Bob_shoots();
-	press_any_key();
+	Press_any_key();
 	test_Charlie_shoots();
-	press_any_key();
+	Press_any_key();
 	test_Aaron_shoots2();
-	press_any_key();
+	Press_any_key();
 	
 	//Simulate 10000 duels Strat1
 	cout << "Ready to test strategy 1 (run 10000 times):\n";
-	press_any_key();
+	Press_any_key();
 	cout << "...\n...\n...\n";
 	int duelCount = 0;
 	while (duelCount < NUMBER_OF_DUELS) {
@@ -115,15 +123,16 @@ int main()
 	double b_percentage = (double) b_wins / (double) NUMBER_OF_DUELS;
 	double c_percentage = (double) c_wins/ (double) NUMBER_OF_DUELS;
 	int a_wins_Strat1 = a_wins; //Save a_wins to compare to strat 2
+	cout<<fixed<<endl;
 	cout << "Aaron won " << a_wins << "/" << NUMBER_OF_DUELS << " duels or " 
-		 << setprecision(2) << a_percentage * 100 << "%\n";
-	cout << "Bob won " << b_wins << "/" << NUMBER_OF_DUELS << " duels or "
-		 << setprecision(2) << b_percentage * 100 << "%\n";
+		 	<< setprecision(2) << a_percentage * 100 << "%\n";
+	cout <<"Bob won " << b_wins << "/" << NUMBER_OF_DUELS << " duels or "
+		 	<< setprecision(2) << b_percentage * 100 << "%\n";
 	cout << "Charlie won " << c_wins << "/" << NUMBER_OF_DUELS << " duels or "
-		 << setprecision(2) << c_percentage * 100 << "%\n\n";	
+		 	<< setprecision(2) << c_percentage * 100 << "%\n\n";	
 	
 	//Simulate 10000 duels Strat2
-	press_any_key();
+	Press_any_key();
 	cin.ignore().get(); // Pause command for linux terminal
 	cout << "...\n...\n...\n";
 	//reset duel counts and wins
@@ -139,11 +148,11 @@ int main()
 	b_percentage = (double) b_wins / (double) NUMBER_OF_DUELS;
 	c_percentage = (double) c_wins/ (double) NUMBER_OF_DUELS;
 	cout << "Aaron won " << a_wins << "/" << NUMBER_OF_DUELS << " duels or " 
-		 << setprecision(2) << a_percentage * 100 << "%\n";
+		 	<< setprecision(2) << a_percentage * 100 << "%\n";
 	cout << "Bob won " << b_wins << "/" << NUMBER_OF_DUELS << " duels or "
-		 << setprecision(2) << b_percentage * 100 << "%\n";
+		 	<< setprecision(2) << b_percentage * 100 << "%\n";
 	cout << "Charlie won " << c_wins << "/" << NUMBER_OF_DUELS << " duels or "
-		 << setprecision(2) << c_percentage * 100 << "%\n";	
+		 	<< setprecision(2) << c_percentage * 100 << "%\n";	
 		 
 	//Compare strategies
 	if (a_wins > a_wins_Strat1) {
@@ -156,25 +165,23 @@ int main()
 		cout << "The strategies have the same outcomes\n";
 	}
 }
-}
 
-bool at_least_two_alive(bool A_alive,bool B_alive,bool C_alive) {
+
+bool at_least_two_alive(bool A_alive, bool B_alive, bool C_alive) {
 	//If Aaron is alive check Bob and Charlie 
 	if (A_alive) {
-			if(B_alive || C_alive) {
-				return true;
+			if (B_alive || C_alive) {
+							return true;
 			}
 	}
-	//If Aaron is dead check and see if Charlie and bob are alive.
-	else if (B_alive) {
+	else if (B_alive) {//If Aaron is dead check and see if Charlie and bob are alive.
 			if (C_alive) {
-				return true;
+					return true;
 			}
 	}
-	//If Bob and Aaron are dead, then there is no way two people are alive thus return false. 
-	else {
-		return false;
-	}
+
+			return false;//If Bob and Aaron are dead, then there is no way two people are alive thus return false. 
+
 }
 
 void Aaron_shoots1(bool& B_alive, bool& C_alive) {
@@ -185,7 +192,7 @@ void Aaron_shoots1(bool& B_alive, bool& C_alive) {
 		if (C_alive) {
 			C_alive = false;
 		}
-		else (B_alive) {
+		else  {
 			B_alive = false;
 		}
 	}
@@ -199,7 +206,7 @@ void Bob_shoots(bool& A_alive, bool& C_alive) {
 		if (C_alive){
 			C_alive = false;
 		}
-		else (A_alive) {
+		else  {
 			A_alive = false;
 		}
 
@@ -209,12 +216,12 @@ void Bob_shoots(bool& A_alive, bool& C_alive) {
 void Charlie_shoots(bool& A_alive, bool& B_alive) {
 	const int CHARLIE_PROBABILTY = 100; // Charlie always hits his shot. 
 	int shoot_target_result;
-	shoot_target_result rand()%100;
-	if (shoot_target_result <= 100;) {
+	shoot_target_result = rand()%100;
+	if (shoot_target_result <= 100) {
 		if (B_alive){
-			B_alive = false:
+			B_alive = false;
 		}
-		else (A_alive) {
+		else  {
 			A_alive = false;
 		}
 	}
@@ -229,7 +236,7 @@ void Aaron_shoots2(bool& C_alive, bool& B_alive) {
 			if (C_alive) {
 				C_alive = false;
 			}
-			else (B_alive) {
+			else  {
 				B_alive = false;
 			}
 		}
@@ -237,17 +244,17 @@ void Aaron_shoots2(bool& C_alive, bool& B_alive) {
 }
 
 void duel_strat1(void) {
-	a_alive = true;
-	b_alive = true;
-	c_alive = true;
+	bool a_alive = true;
+	bool b_alive = true;
+	bool c_alive = true;
 	while(at_least_two_alive(a_alive, b_alive, c_alive)) {
 		if (a_alive) {
 			Aaron_shoots1(b_alive, c_alive);
 		}
-		else if (b_alive){
+		if (b_alive){
 			Bob_shoots(a_alive, c_alive);
 		}
-		else (c_alive){
+		if (c_alive) {
 			Charlie_shoots(a_alive, b_alive);
 		}
 
@@ -257,25 +264,25 @@ void duel_strat1(void) {
 			a_wins++;
 		}
 		else if (b_alive) {
-			b_alive++;
+			b_wins++;
 		}
-		else (c_alive) {
-			c_alive++;
+		else  {
+			c_wins++;
 		}
 }
 
 void duel_strat2(void) {
-	a_alive = true;
-	b_alive = true;
-	c_alive = true;
+	bool a_alive = true;
+	bool b_alive = true;
+	bool c_alive = true;
 	while(at_least_two_alive(a_alive, b_alive, c_alive)) {
 		if (a_alive) {
 			Aaron_shoots2(b_alive, c_alive);
 		}
-		else if (b_alive){
+		if (b_alive){
 			Bob_shoots(a_alive, c_alive);
 		}
-		else (c_alive){
+		if (c_alive){
 			Charlie_shoots(a_alive, b_alive);
 		}
 	}
@@ -283,10 +290,10 @@ void duel_strat2(void) {
 			a_wins++;
 		}
 		else if (b_alive) {
-			b_alive++;
+			b_wins++;
 		}
-		else (c_alive) {
-			c_alive++;
+		else  {
+			c_wins++;
 		}
 }
 // Testing for each case.
@@ -385,7 +392,7 @@ void test_Bob_shoots(void) {
 	cout << "\tCase 1: Aaron alive, Charlie alive\n";
 	cout << "\t\tBob is shooting at Charlie\n";
 	a_alive = true;
-	c_alive - true;
+	c_alive = true;
 	Bob_shoots(a_alive, c_alive);
 	//Bob is shooting at charlie, so Aaron has to stay alive
 	assert(true == a_alive);
@@ -509,8 +516,7 @@ void test_Aaron_shoots2(void) {
 	}
 }
 
-void press_any_key(void) {
+void Press_any_key(void) {
 	cout <<"Press any key to continue...";
 	cin.ignore().get();
-
 }
